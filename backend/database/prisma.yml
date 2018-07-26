@@ -1,0 +1,14 @@
+
+#endpoint: ''
+endpoint: https://eu1.prisma.sh/antoine-picard-113c26/database/dev
+
+
+datamodel: datamodel.graphql
+
+
+secret: mysecret123
+
+
+hooks:
+  post-deploy:
+    - graphql get-schema --project database

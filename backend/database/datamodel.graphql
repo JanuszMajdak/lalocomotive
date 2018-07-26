@@ -1,0 +1,13 @@
+type Page {
+  id: ID! @unique
+  createdAt: DateTime!
+  title: String!
+  imageUrl: String!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+}
