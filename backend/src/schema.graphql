@@ -2,7 +2,7 @@
 
 type Query {
   info: String!
-  page: [Page!]!
+  pages: [Page!]!
 }
 
 type Mutation {
