@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 
 const QUERY = gql`
   {
-    page {
+    pages {
       title
       imageUrl
     }
@@ -20,7 +20,7 @@ class PageList extends Component {
           if (loading) return <div>Fetching</div>;
           if (error) return <div>problem</div>;
 
-          const pagesToRender = data.page[0];
+          const pagesToRender = data.pages[0];
 
           return (
             <div>{<Page key={pagesToRender.id} page={pagesToRender} />}</div>
