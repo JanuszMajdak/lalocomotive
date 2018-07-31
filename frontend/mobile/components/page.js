@@ -1,19 +1,51 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { graphql, ApolloProvider } from "react-apollo";
+import gql from "graphql-tag";
 
-class Page extends React.Component {
-  render() {
-    return (
-      <View>
-        <Text>Test</Text>
-      </View>
-    );
+// const QUERY = gql`
+//   {
+//     pages {
+//       title
+//       imageUrl
+//     }
+//   }
+// `;
+
+// class Page extends React.Component {
+//   render() {
+//     return (
+//       <Text style={{ textAlign: "center", padding: 40 }}> Cool </Text>
+
+//       // {({ loading, error, data }) => {
+//       //   if (loading) return <Text>Fetching</Text>;
+//       //   if (error) return <Text>problem</Text>;
+
+//       //   const pagesToRender = data.pages[0];
+
+//       //   return (
+//       //     <div>{<Page key={pagesToRender.id} page={pagesToRender} />}</div>
+//       //   );
+//       // }}
+//     );
+//   }
+// }
+
+function QCM({ data: { loading, pages } }) {
+  if (loading) {
+    return <Text>Loading</Text>;
+  } else {
+    return <Text style={{ textAlign: "center", padding: 40 }}> {pages[0].title} </Text>;
   }
 }
-{
-  /* <View style={styles.top}>
-</View> */
-}
+
+export default graphql(gql`
+  query allPages {
+    pages {
+      title
+    }
+  }
+`)(QCM);
 
 const styles = StyleSheet.create({
   pageContainer: {
@@ -80,4 +112,4 @@ const styles = StyleSheet.create({
   image: {}
 });
 
-export default Page;
+// export default Page;
