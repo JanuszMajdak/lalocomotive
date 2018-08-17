@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Button } from "react-native";
 import { graphql, ApolloProvider } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -35,7 +35,35 @@ function QCM({ data: { loading, pages } }) {
   if (loading) {
     return <Text>Loading</Text>;
   } else {
-    return <Text style={{ textAlign: "center", padding: 40 }}> {pages[0].title} </Text>;
+    var title = pages[8].title;
+    var imageUrl = pages[8].imageUrl;
+    return (
+      <View style={styles.pageContainer}>
+        <View style={styles.questionContainer}>
+          <Text style={{ textAlign: "center", padding: 40, paddingTop: 60 }}>
+            {title}
+          </Text>
+        </View>
+        <View style={styles.mainContainer}>
+          <View style={styles.imageContainer}>
+            <Image
+              style={{ height: 100, resizeMode: "contain" }}
+              source={{
+                uri: imageUrl
+              }}
+            />
+          </View>
+          <View style={styles.choicesContainer} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            // onPress={onPressLearnMore}
+            title="Next"
+            color="blue"
+          />
+        </View>
+      </View>
+    );
   }
 }
 
@@ -43,73 +71,37 @@ export default graphql(gql`
   query allPages {
     pages {
       title
+      imageUrl
     }
   }
 `)(QCM);
 
 const styles = StyleSheet.create({
   pageContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-  descriptionContainer: {
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100%",
-    marginTop: 30
-  },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "90%",
-    height: 30
-  },
-  title: {
-    marginLeft: 10,
-    fontSize: 15,
-    fontWeight: "bold"
-  },
-  textContainer: {
-    alignItems: "center",
-    marginTop: 10,
-    width: "90%"
-  },
-  cardsContainer: {
     justifyContent: "space-between",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: "100%"
+    backgroundColor: "red",
+    height: "100%"
   },
-  card: {
-    padding: 10,
+  questionContainer: {
+    backgroundColor: "white"
+  },
+  mainContainer: {
+    backgroundColor: "green",
+    flex: 1
+  },
+  imageContainer: {
     marginTop: 10,
-    alignItems: "center",
-    width: "48%"
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 3,
+    backgroundColor: "white"
   },
-  cardTitle: {
-    marginBottom: 10,
-    fontWeight: "bold"
+  choicesContainer: {
+    backgroundColor: "blue"
   },
-
   buttonContainer: {
-    marginBottom: 10,
-    width: "100%",
-    padding: 10
-  },
-  welcome: {
-    fontSize: 50,
-    textAlign: "center",
-    justifyContent: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  },
-  image: {}
+    backgroundColor: "white"
+  }
 });
 
 // export default Page;
